@@ -13,7 +13,7 @@ public class MyFirstProgram {
     Rectangle r = new Rectangle(4, 6);
     System.out.println("Площадь прямоугольника со сторонами " + r.a + "и" + r.b + "="+ r.area());
 
-    Point p = new Point(1,3,2,5);
+    Point p = new Point(1,2,3,4);
     System.out.println("Длинна = " + p.distance());
 
 

@@ -37,7 +37,7 @@ public class GroupCreationTests {
     driver.quit();
   }
   @Test
-  public void 1() {
+  public void GroupCreationTests() {
     driver.get("http://localhost/addressbook/group.php");
     driver.manage().window().setSize(new Dimension(1667, 937));
     driver.findElement(By.name("user")).sendKeys("admin");

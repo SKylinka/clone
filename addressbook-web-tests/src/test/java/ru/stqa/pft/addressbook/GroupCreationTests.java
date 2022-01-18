@@ -11,33 +11,60 @@ import java.util.concurrent.TimeUnit;
 
 
 public class GroupCreationTests {
-  private ChromeDriver driver;
-  @BeforeMethod
-  public void setUp() {
-    driver = new ChromeDriver();
-    driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-  }
-  @AfterMethod
-  public void tearDown() {
-    driver.quit();
-  }
-  @Test
-  public void GroupCreationTests() {
-    driver.get("http://localhost/addressbook/group.php");
-    driver.manage().window().setSize(new Dimension(1667, 937));
-    driver.findElement(By.name("user")).sendKeys("admin");
-    driver.findElement(By.name("pass")).click();
-    driver.findElement(By.name("pass")).sendKeys("secret");
-    driver.findElement(By.cssSelector("input:nth-child(7)")).click();
-    driver.findElement(By.linkText("groups")).click();
-    driver.findElement(By.name("new")).click();
-    driver.findElement(By.name("group_name")).click();
-    driver.findElement(By.name("group_name")).sendKeys("test5");
-    driver.findElement(By.name("group_header")).click();
-    driver.findElement(By.name("group_header")).sendKeys("test6");
-    driver.findElement(By.name("group_footer")).click();
-    driver.findElement(By.name("group_footer")).sendKeys("test7");
-    driver.findElement(By.name("submit")).click();
-    driver.findElement(By.linkText("group page")).click();
-  }
+    private ChromeDriver driver;
+
+    @BeforeMethod
+    public void setUp() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.get("http://localhost/addressbook/group.php");
+        login("admin", "secret");
+    }
+
+    private void login(String username, String password) {
+        driver.manage().window().setSize(new Dimension(1667, 937));
+        driver.findElement(By.name("user")).sendKeys(username);
+        driver.findElement(By.name("pass")).click();
+        driver.findElement(By.name("pass")).sendKeys(password);
+        driver.findElement(By.cssSelector("input:nth-child(7)")).click();
+    }
+
+    @Test
+    public void testGroupCreation() {
+        gotoGroupPage();
+        initGroupeCreation();
+        fillGroupForm(new GroupData("test5", "test6", "test7"));
+        sumbitGroupeCreation();
+        returnToGroupe();
+    }
+
+    private void returnToGroupe() {
+        driver.findElement(By.linkText("group page")).click();
+    }
+
+    private void sumbitGroupeCreation() {
+        driver.findElement(By.name("submit")).click();
+    }
+
+    private void fillGroupForm(GroupData groupData) {
+        driver.findElement(By.name("group_name")).click();
+        driver.findElement(By.name("group_name")).sendKeys(groupData.getName());
+        driver.findElement(By.name("group_header")).click();
+        driver.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
+        driver.findElement(By.name("group_footer")).click();
+        driver.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
+    }
+
+    private void initGroupeCreation() {
+        driver.findElement(By.name("new")).click();
+    }
+
+    private void gotoGroupPage() {
+        driver.findElement(By.linkText("groups")).click();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.quit();
+    }
 }

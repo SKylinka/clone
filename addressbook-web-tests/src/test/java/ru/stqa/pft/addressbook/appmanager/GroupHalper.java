@@ -35,4 +35,9 @@ public class GroupHalper extends HelperBase {
     public void selectGroup() {
         click(By.name("selected[]"));
     }
+
+    public void initGroupeModification() {   click(By.name("edit")); }
+
+    public void sumbitGroupeModification() {  click(By.name("update"));
+    }
 }

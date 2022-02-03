@@ -11,7 +11,7 @@ public class UserData {
     private final String mblLo;
 
     public UserData(String Famil, String name, String otche, String nick, String company, String tower, String fax, String mblLo) {
-        famil = Famil;
+        this.famil = Famil;
         this.name = name;
         this.otche = otche;
         this.nick = nick;

@@ -1,13 +1,14 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 public class GroupHalper extends HelperBase {
 
-    public GroupHalper(ChromeDriver driver) {
-        super(driver);
+    public GroupHalper(WebDriver driver) {
+        super((ChromeDriver) driver);
     }
 
     public void returnToGroupe() {

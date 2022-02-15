@@ -7,6 +7,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.Browser;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -14,28 +15,30 @@ public class ApplicationManager {
     private SessionHelper sessionHelper;
     private NavigationHelper navigationHelper;
     private GroupHalper groupHalper;
-    private String browser;
+    private Browser browser;
+    private ContactHelper contactHelper;
 
-    public ApplicationManager(String browser) {
+
+    public ApplicationManager(Browser browser) {
         this.browser = browser;
     }
 
     public void init() {
 
-        if (browser == org.openqa.selenium.remote.BrowserType.CHROME) {
+        if (browser.equals(Browser.CHROME)) {
             driver = new ChromeDriver();
-        } else  if (browser == org.openqa.selenium.remote.BrowserType.FIREFOX){
+        } else  if (browser.equals(Browser.FIREFOX)){
             driver = new FirefoxDriver();
-        } else  if (browser == BrowserType.IE){
+        } else  if (browser.equals(Browser.IE)){
             driver = new InternetExplorerDriver();
         }
-
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
         driver.get("http://localhost/addressbook/group.php");
         groupHalper = new GroupHalper(driver);
         navigationHelper = new NavigationHelper(driver);
         sessionHelper = new SessionHelper(driver);
         sessionHelper.login("admin", "secret");
+        contactHelper = new ContactHelper(driver);
     }
 
 
@@ -54,5 +57,9 @@ public class ApplicationManager {
 
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
+    }
+
+    public ContactHelper getContactHelper() {
+        return contactHelper;
     }
 }

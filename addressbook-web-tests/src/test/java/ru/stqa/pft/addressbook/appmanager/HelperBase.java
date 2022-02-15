@@ -3,13 +3,13 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
 
 public class HelperBase {
 
     protected WebDriver driver;
 
-    public HelperBase(ChromeDriver driver) {
+    public HelperBase(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -19,9 +19,16 @@ public class HelperBase {
 
     protected void type(By locator, String text) {
         click(locator);
-        driver.findElement(locator).sendKeys(text);
+        if (text != null) {
+            String existingText = driver.findElement(locator).getAttribute("value");
+            if (! text.equals(existingText)) {
+                driver.findElement(locator).sendKeys(text);
+            }
+
+        }
     }
-    public boolean isAlertPresent(){
+
+    public boolean isAlertPresent() {
         try {
             driver.switchTo().alert();
             return true;
@@ -31,3 +38,4 @@ public class HelperBase {
         }
     }
 }
+

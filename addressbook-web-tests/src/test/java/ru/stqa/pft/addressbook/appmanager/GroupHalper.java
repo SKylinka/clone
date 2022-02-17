@@ -41,4 +41,15 @@ public class GroupHalper extends HelperBase {
 
     public void sumbitGroupeModification() {  click(By.name("update"));
     }
+
+    public void createGroupe(GroupData group) {
+        initGroupeCreation();
+        fillGroupForm(group);
+        sumbitGroupeCreation();
+        returnToGroupe();
+    }
+
+    public boolean isThereAGroup() {
+     return isElementPresent( By.name("selected[]"));
+    }
 }
